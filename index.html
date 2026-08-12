@@ -35,7 +35,6 @@ header{padding:24px 24px 8px;display:flex;justify-content:space-between;align-it
 .tagline{color:var(--muted);font-size:13px;margin-top:2px;}
 .gear{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;}
 
-/* Barra de meta diaria */
 .target-bar{margin:4px 24px 4px;background:var(--surface);border-radius:16px;padding:14px 16px;}
 .target-bar .row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px;}
 .target-bar .row b{color:var(--cream);font-family:'Space Grotesk',sans-serif;}
@@ -48,7 +47,6 @@ header{padding:24px 24px 8px;display:flex;justify-content:space-between;align-it
 
 main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
 
-/* Onboarding / perfil */
 #profile-screen{display:none;flex-direction:column;gap:14px;padding-top:8px;}
 #profile-screen h2{font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0;}
 #profile-screen .sub{color:var(--muted);font-size:13px;margin-top:-8px;}
@@ -71,7 +69,6 @@ main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
 .btn-secondary{background:var(--surface-2);color:var(--cream);}
 .actions{display:flex;gap:10px;}
 
-/* Captura */
 .scan-frame{border:2px dashed var(--line);border-radius:20px;aspect-ratio:1/1;
   display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
   background:var(--surface);margin-top:0px;}
@@ -84,7 +81,6 @@ main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
 .scan-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;}
 .hint{color:var(--muted);font-size:13px;text-align:center;line-height:1.5;margin:0;}
 
-/* Loading */
 #loading-screen{display:none;flex-direction:column;align-items:center;justify-content:center;
   gap:18px;padding:60px 0;}
 .spinner{width:56px;height:56px;border-radius:50%;border:4px solid var(--surface-2);
@@ -92,7 +88,6 @@ main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 #loadingMsg{color:var(--muted);font-size:14px;text-align:center;}
 
-/* Resultado - etiqueta nutricional */
 #result-screen{display:none;flex-direction:column;gap:14px;}
 .label-card{background:var(--cream);color:#16141c;border-radius:18px;padding:22px 22px 18px;
   position:relative;}
@@ -122,18 +117,22 @@ main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
 .note{font-size:12px;color:#4a4553;margin-top:14px;line-height:1.5;}
 .health-note{font-size:12px;background:#ff5a5f1a;color:#a13c3c;border-radius:10px;padding:8px 10px;margin-top:10px;}
 
-/* Error */
 #error-screen{display:none;flex-direction:column;align-items:center;gap:12px;padding:40px 0;text-align:center;}
 #error-screen .ex{font-size:36px;color:var(--accent-2);}
 
-/* Historial */
 #history{margin-top:6px;}
 #history h2{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;margin:0 0 10px;}
-.hist-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;
-  border-bottom:1px solid var(--line);}
+.hist-item{padding:12px 0;border-bottom:1px solid var(--line);}
+.hist-item .hist-top{display:flex;justify-content:space-between;align-items:center;}
 .hist-item .name{font-size:14px;}
 .hist-item .time{color:var(--muted);font-size:11px;margin-top:2px;}
 .hist-item .cals{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--accent);}
+.hist-item .hist-detail{margin-top:8px;padding-left:2px;display:none;}
+.hist-item .hist-detail.open{display:block;}
+.hist-item .hist-ing{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:3px 0;}
+.hist-item .hist-ing .item-tag{transform:scale(0.85);}
+.hist-toggle{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;padding:2px 0;
+  text-decoration:underline;margin-top:4px;}
 .empty-hist{color:var(--muted);font-size:13px;padding:8px 0;}
 .total-bar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;
   padding-top:14px;border-top:1px solid var(--line);}
@@ -162,7 +161,6 @@ main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
   </div>
 
   <main>
-    <!-- PERFIL / ONBOARDING -->
     <section id="profile-screen">
       <h2 id="profileTitle">Cuéntanos de ti</h2>
       <div class="sub">Esto nos ayuda a calcular tu meta diaria de calorías.</div>
@@ -227,7 +225,6 @@ main{padding:0 24px;flex:1;display:flex;flex-direction:column;gap:20px;}
       </div>
     </section>
 
-    <!-- CAPTURA -->
     <section id="capture-screen">
       <div class="scan-frame" id="scanFrame">
         <input type="file" id="fileInput" accept="image/*" capture="environment" hidden>
@@ -317,7 +314,6 @@ function showScreen(id){
   });
 }
 
-// Chips de condiciones
 document.getElementById('conditionChips').addEventListener('click', (e)=>{
   const chip = e.target.closest('.chip');
   if(!chip) return;
@@ -619,6 +615,8 @@ function resetToCapture(){
   showScreen('capture-screen');
 }
 
+// Guarda la comida completa: totales + el desglose de cada ingrediente con su fuente
+// (usda/ia), para poder auditar, editar o corregir más adelante.
 async function saveEntry(){
   if(!currentResult) return;
   const key = 'log:' + Date.now();
@@ -628,6 +626,18 @@ async function saveEntry(){
     proteina: Math.round(currentResult.proteina_g||0),
     carbohidratos: Math.round(currentResult.carbohidratos_g||0),
     grasas: Math.round(currentResult.grasas_g||0),
+    azucares: Math.round(currentResult.azucares_g||0),
+    confianza: currentResult.confianza || 'media',
+    items: (currentResult.items||[]).map(it => ({
+      nombre: it.nombre,
+      gramos: Math.round(it.gramos||0),
+      calorias: Math.round(it.calorias||0),
+      proteina: Math.round(it.proteina||0),
+      carbohidratos: Math.round(it.carbohidratos||0),
+      grasas: Math.round(it.grasas||0),
+      azucares: Math.round(it.azucares||0),
+      fuente: it.fuente || 'ia'
+    })),
     hora: new Date().toISOString()
   };
   try{
@@ -637,6 +647,11 @@ async function saveEntry(){
   }
   resetToCapture();
   loadHistory();
+}
+
+function toggleHistDetail(id){
+  const el = document.getElementById(id);
+  if(el) el.classList.toggle('open');
 }
 
 function isToday(isoStr){
@@ -667,15 +682,29 @@ async function loadHistory(){
     if(entries.length === 0){
       listEl.innerHTML = '<div class="empty-hist">Aún no has guardado ninguna comida hoy.</div>';
     } else {
-      listEl.innerHTML = entries.map(e=>{
+      listEl.innerHTML = entries.map((e, idx)=>{
         total += e.calorias;
         totalProt += e.proteina||0;
         totalCarb += e.carbohidratos||0;
         totalFat += e.grasas||0;
         const time = new Date(e.hora).toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+        const detailId = 'hist-detail-' + idx;
+        const hasItems = e.items && e.items.length;
+        const itemsHtml = hasItems ? e.items.map(it=>{
+          const tagClass = it.fuente === 'usda' ? '' : 'ia';
+          const tagText = it.fuente === 'usda' ? 'USDA' : 'IA';
+          return `<div class="hist-ing">
+            <span>${it.nombre} (${it.gramos}g)</span>
+            <span>${it.calorias} kcal <span class="item-tag ${tagClass}">${tagText}</span></span>
+          </div>`;
+        }).join('') : '';
         return `<div class="hist-item">
-          <div><div class="name">${e.nombre}</div><div class="time">${time}</div></div>
-          <div class="cals">${e.calorias} kcal</div>
+          <div class="hist-top">
+            <div><div class="name">${e.nombre}</div><div class="time">${time}</div></div>
+            <div class="cals">${e.calorias} kcal</div>
+          </div>
+          ${hasItems ? `<button class="hist-toggle" onclick="toggleHistDetail('${detailId}')">ver ingredientes</button>
+          <div class="hist-detail" id="${detailId}">${itemsHtml}</div>` : ''}
         </div>`;
       }).join('');
     }
